@@ -13,5 +13,6 @@
     "PeterJausovec.vscode-docker",
     "Pivotal.vscode-spring-boot",
     "vscjava.vscode-spring-boot-dashboard"
-	]
+	],
+	"runArgs": ["-v","/var/run/docker.sock:/var/run/docker.sock"]
 }

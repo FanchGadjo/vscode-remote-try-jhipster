@@ -1,3 +1,5 @@
 {
-    "java.home": "/docker-java-home"
+    "remote.extensionKind": {
+        "peterjausovec.vscode-docker": "workspace"
+    }
 }

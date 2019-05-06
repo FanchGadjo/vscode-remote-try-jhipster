@@ -1,20 +1,36 @@
-#-----------------------------------------------------------------------------------------
-# Copyright (c) Microsoft Corporation. All rights reserved.
-# Licensed under the MIT License. See LICENSE in the project root for license information.
-#-----------------------------------------------------------------------------------------
-
-FROM maven:3.6-jdk-8
-
-# Copy endpoint specific user settings overrides into container to specify Java path
-COPY settings.vscode.json /root/.vscode-remote/data/Machine/settings.json
+FROM ubuntu:bionic
 
 # Configure apt
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
-    && apt-get -y install --no-install-recommends apt-utils 2>&1
+    && apt-get -y install --no-install-recommends apt-utils \
+    wget \
+    curl \
+    vim \
+    git \
+    zip \
+    bzip2 \
+    fontconfig \
+    python \
+    g++ \
+    libpng-dev \
+    build-essential \
+    software-properties-common \
+    procps \
+    lsb-release \
+    sudo && \
+  # install OpenJDK 11
+  add-apt-repository ppa:openjdk-r/ppa && \
+  apt-get update && \
+  apt-get install -y openjdk-11-jdk && \
+  update-java-alternatives -s java-1.11.0-openjdk-amd64 && \
+  # install node.js
+  wget https://nodejs.org/dist/v10.15.3/node-v10.15.3-linux-x64.tar.gz -O /tmp/node.tar.gz && \
+  tar -C /usr/local --strip-components 1 -xzf /tmp/node.tar.gz && \
+  # upgrade npm
+  npm install -g npm
 
-# Verify git, needed tools installed
-RUN apt-get -y install git procps curl
+RUN npm install -g generator-jhipster
 
 # Clean up
 RUN apt-get autoremove -y \
@@ -22,4 +38,4 @@ RUN apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
 ENV DEBIAN_FRONTEND=dialog
 
-	
+EXPOSE 8080 9000 3001

@@ -1,8 +1,17 @@
+// See https://aka.ms/vscode-remote/containers for the
+// documentation about the devcontainer.json format
 {
-	"name": "Java Sample",
+	"name": "JHipster Dev Sample",
 	"dockerFile": "Dockerfile",
+	"appPort": [8080, 9000, 3001],
 	"extensions": [
 		"vscjava.vscode-java-pack",
-		"redhat.vscode-xml"
+		"redhat.vscode-xml",
+		"johnpapa.Angular2",
+		"EditorConfig.EditorConfig",
+		"jhipster-ide.jdl",
+    "PeterJausovec.vscode-docker",
+    "Pivotal.vscode-spring-boot",
+    "vscjava.vscode-spring-boot-dashboard"
 	]
 }
